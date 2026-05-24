@@ -1,0 +1,6 @@
+# Core dependencies
+yt-dlp>=2024.10.22
+
+# Optional dependencies (recommended for features/performance)
+mutagen
+pycryptodomex
