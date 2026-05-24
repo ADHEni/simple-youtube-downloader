@@ -1,5 +1,5 @@
 @echo off
-rem UTF-8-Codierung aktivieren, um Unicode-Zeichen/Emojis korrekt in der Konsole anzuzeigen
+rem Enable UTF-8 encoding to correctly display Unicode characters and emojis in the console
 chcp 65001 >nul
 set PYTHONUTF8=1
 
@@ -8,47 +8,47 @@ echo             YouTube Downloader - Starter
 echo ==================================================
 echo.
 
-rem 1. Pruefen, ob Python im System-PATH registriert ist
+rem 1. Check if Python is registered in the system PATH
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo [FEHLER] Python wurde nicht gefunden!
-    echo Bitte lade dir Python von https://www.python.org/ herunter,
-    echo installiere es und aktiviere dabei das Kontrollkaestchen "Add Python to PATH".
+    echo [ERROR] Python was not found on your system!
+    echo Please download and install Python from https://www.python.org/
+    echo Make sure to check the box "Add Python to PATH" during installation.
     echo.
     pause
     exit /b 1
 )
 
-rem 2. Pruefen, ob die virtuelle Umgebung venv bereits existiert
+rem 2. Check if the virtual environment exists
 if not exist ".venv" (
-    echo [.venv] Virtuelle Umgebung existiert nicht. Wird erstellt...
+    echo [.venv] Virtual environment does not exist. Creating...
     python -m venv .venv
     if errorlevel 1 (
-        echo [FEHLER] Konnte virtuelle Umgebung nicht erstellen.
+        echo [ERROR] Failed to create virtual environment.
         pause
         exit /b 1
     )
     
-    echo [.venv] Installiere Abhaengigkeiten aus requirements.txt...
+    echo [.venv] Installing dependencies from requirements.txt...
     .venv\Scripts\pip install --upgrade pip
     .venv\Scripts\pip install -r requirements.txt
     if errorlevel 1 (
-        echo [FEHLER] Installation der Abhaengigkeiten ist fehlgeschlagen.
+        echo [ERROR] Failed to install dependencies.
         pause
         exit /b 1
     )
-    echo [.venv] Setup erfolgreich abgeschlossen!
+    echo [.venv] Setup successfully completed!
     echo.
 )
 
-rem 3. Ausfuehren des YouTube Downloaders
-echo [Start] Starte YouTube Downloader...
+rem 3. Execute the YouTube Downloader
+echo [Start] Launching YouTube Downloader...
 echo.
 .venv\Scripts\python youtube_downloader.py
 
-rem 4. Verhindern, dass sich das Konsolenfenster sofort schließt
+rem 4. Prevent the console window from closing immediately
 echo.
 echo ==================================================
-echo [Beendet] Druecke eine beliebige Taste, um zu schliessen.
+echo [Finished] Press any key to close.
 echo ==================================================
 pause >nul
